@@ -52,27 +52,12 @@
             background-color: #e2e8f0;
             transform: translateY(-2px);
         }
-        .draggable {
-            cursor: grab;
-            user-select: none;
-            padding: 0.75rem;
-            margin: 0.5rem;
-            background-color: #e0e7ff;
-            border: 2px solid #a5b4fc;
+        .fill-in-the-blank {
+            border: 2px solid #e2e8f0;
             border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            width: 120px;
             text-align: center;
-        }
-        .drop-target {
-            padding: 1rem;
-            margin: 0.5rem;
-            background-color: #f3f4f6;
-            border: 2px dashed #9ca3af;
-            border-radius: 8-px;
-            min-height: 50px;
-            transition: background-color 0.2s;
-        }
-        .drop-target.over {
-            background-color: #d1d5db;
         }
     </style>
 </head>
@@ -176,96 +161,75 @@
                 </div>
             </section>
 
-            <!-- Parte 4: Arrastrar y Soltar -->
-            <section id="drag-drop">
-                <h2 class="text-2xl font-semibold text-blue-700 my-4 border-b-2 border-blue-200 pb-2">Parte 4: Drag and Drop</h2>
+            <!-- Parte 4: Completar el espacio en blanco -->
+            <section id="fill-in-the-blank">
+                <h2 class="text-2xl font-semibold text-blue-700 my-4 border-b-2 border-blue-200 pb-2">Parte 4: Fill in the blank</h2>
                 
                 <!-- Pregunta 7 -->
                 <div class="card">
-                    <p class="mb-4 text-lg">7. Drag and drop the correct words to complete the sentences.</p>
-                    <div class="flex flex-col md:flex-row justify-between mt-4 items-center">
-                        <div id="words" class="flex flex-wrap justify-center">
-                            <div class="draggable" draggable="true" data-value="is">is</div>
-                            <div class="draggable" draggable="true" data-value="are">are</div>
+                    <p class="mb-4 text-lg">7. Complete the sentences with "is" or "are".</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center flex-wrap">
+                            <span class="text-lg mr-2">There</span>
+                            <input type="text" id="blank-1" class="fill-in-the-blank" placeholder="...">
+                            <span class="text-lg ml-2">a lot of sugar in the drink.</span>
                         </div>
-                        <div id="drop-sentences" class="w-full md:w-1/2 mt-4 md:mt-0 space-y-4">
-                            <div class="flex items-center">
-                                <span class="text-lg">There</span>
-                                <div id="drop-1" class="drop-target w-24 mx-2" data-accepts="is"></div>
-                                <span class="text-lg">a lot of sugar in the drink.</span>
-                            </div>
-                            <div class="flex items-center">
-                                <span class="text-lg">There</span>
-                                <div id="drop-2" class="drop-target w-24 mx-2" data-accepts="are"></div>
-                                <span class="text-lg">many ingredients in the soup.</span>
-                            </div>
+                        <div class="flex items-center flex-wrap">
+                            <span class="text-lg mr-2">There</span>
+                            <input type="text" id="blank-2" class="fill-in-the-blank" placeholder="...">
+                            <span class="text-lg ml-2">many ingredients in the soup.</span>
                         </div>
                     </div>
-                    <button onclick="checkDragDrop('sentences', 2)" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
-                    <div id="feedback-sentences" class="feedback"></div>
+                    <button onclick="checkFillInTheBlank('blank-1', 'is', 'blank-2', 'are', 'feedback-blank7')" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
+                    <div id="feedback-blank7" class="feedback"></div>
                 </div>
 
                 <!-- Pregunta 8 -->
                 <div class="card">
-                    <p class="mb-4 text-lg">8. Drag the phrases to complete the sentences correctly.</p>
-                    <div class="flex flex-col md:flex-row justify-between mt-4 items-center">
-                        <div id="phrases" class="flex flex-wrap justify-center">
-                            <div class="draggable" draggable="true" data-value="correct">there is</div>
-                            <div class="draggable" draggable="true" data-value="incorrect">there are</div>
-                        </div>
-                        <div id="drop-phrases" class="w-full md:w-1/2 mt-4 md:mt-0 space-y-4">
-                             <div class="flex items-center">
-                                <div id="drop-3" class="drop-target w-32" data-accepts="correct"></div>
-                                <span class="ml-2 text-lg">some cheese on the pizza.</span>
-                            </div>
-                        </div>
+                    <p class="mb-4 text-lg">8. Complete the sentence with "there is" or "there are".</p>
+                    <div class="flex items-center flex-wrap">
+                        <input type="text" id="blank-3" class="fill-in-the-blank" placeholder="...">
+                        <span class="text-lg ml-2">some cheese on the pizza.</span>
                     </div>
-                     <button onclick="checkDragDrop('phrases', 1)" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
-                     <div id="feedback-phrases" class="feedback"></div>
+                    <button onclick="checkFillInTheBlank('blank-3', 'there is', null, null, 'feedback-blank8')" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
+                    <div id="feedback-blank8" class="feedback"></div>
                 </div>
                 
                  <!-- Pregunta 9 -->
                 <div class="card">
-                    <p class="mb-4 text-lg">9. Drag and drop the words to complete the questions correctly.</p>
-                    <div class="flex flex-col md:flex-row justify-between mt-4 items-center">
-                        <div id="question-words" class="flex flex-wrap justify-center">
-                            <div class="draggable" draggable="true" data-value="is">is</div>
-                            <div class="draggable" draggable="true" data-value="are">are</div>
+                    <p class="mb-4 text-lg">9. Complete the questions with "is" or "are".</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center flex-wrap">
+                            <input type="text" id="blank-4" class="fill-in-the-blank" placeholder="...">
+                            <span class="text-lg ml-2">there any vegetables?</span>
                         </div>
-                        <div id="drop-questions" class="w-full md:w-1/2 mt-4 md:mt-0 space-y-4">
-                            <div class="flex items-center">
-                                <div id="drop-4" class="drop-target w-24 mx-2" data-accepts="are"></div>
-                                <span class="text-lg">there any vegetables?</span>
-                            </div>
-                            <div class="flex items-center">
-                                <div id="drop-5" class="drop-target w-24 mx-2" data-accepts="is"></div>
-                                <span class="text-lg">there a big spoon?</span>
-                            </div>
+                        <div class="flex items-center flex-wrap">
+                            <input type="text" id="blank-5" class="fill-in-the-blank" placeholder="...">
+                            <span class="text-lg ml-2">there a big spoon?</span>
                         </div>
                     </div>
-                    <button onclick="checkDragDrop('questions', 2)" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
-                    <div id="feedback-questions" class="feedback"></div>
+                    <button onclick="checkFillInTheBlank('blank-4', 'are', 'blank-5', 'is', 'feedback-blank9')" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
+                    <div id="feedback-blank9" class="feedback"></div>
                 </div>
 
                  <!-- Pregunta 10 -->
                 <div class="card">
-                    <p class="mb-4 text-lg">10. Drag and drop the food to the correct plate.</p>
+                    <p class="mb-4 text-lg">10. Look at the image. Complete the sentences.</p>
                     <img src="https://www.entrenadorwellness.com/wp-content/uploads/2019/03/Pollo-con-verduras-al-horno.jpg.webp" alt="Image of various ingredients like vegetables" class="question-img mb-4">
-                    <div class="flex justify-around mt-4">
-                        <div class="drop-target p-4 w-1/3" id="drop-plate1" data-accepts="vegetables">
-                            <p class="text-center font-bold">Plate 1 (Vegetables)</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center flex-wrap">
+                            <span class="text-lg mr-2">There</span>
+                            <input type="text" id="blank-6" class="fill-in-the-blank" placeholder="...">
+                            <span class="text-lg ml-2">many vegetables on the plate.</span>
                         </div>
-                        <div class="drop-target p-4 w-1/3" id="drop-plate2" data-accepts="chicken">
-                            <p class="text-center font-bold">Plate 2 (Chicken)</p>
+                        <div class="flex items-center flex-wrap">
+                            <span class="text-lg mr-2">There</span>
+                            <input type="text" id="blank-7" class="fill-in-the-blank" placeholder="...">
+                            <span class="text-lg ml-2">a lot of chicken on the plate.</span>
                         </div>
                     </div>
-                    <div class="flex justify-around mt-4">
-                        <div class="draggable p-2 w-1/4 text-sm" draggable="true" data-value="vegetables">Tomatoes</div>
-                        <div class="draggable p-2 w-1/4 text-sm" draggable="true" data-value="chicken">Chicken Breast</div>
-                        <div class="draggable p-2 w-1/4 text-sm" draggable="true" data-value="vegetables">Potatoes</div>
-                    </div>
-                    <button onclick="checkDragDrop('plates', 2)" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
-                    <div id="feedback-plates" class="feedback"></div>
+                    <button onclick="checkFillInTheBlank('blank-6', 'are', 'blank-7', 'is', 'feedback-blank10')" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
+                    <div id="feedback-blank10" class="feedback"></div>
                 </div>
             </section>
         </main>
@@ -313,86 +277,38 @@
             feedbackEl.style.display = 'block';
         }
 
-        // --- Lógica para Arrastrar y Soltar ---
-        let draggedItem = null;
+        // --- Lógica para Completar el espacio en blanco ---
+        function checkFillInTheBlank(blank1Id, expected1, blank2Id, expected2, feedbackId) {
+            const input1 = document.getElementById(blank1Id);
+            const feedbackEl = document.getElementById(feedbackId);
+            let correct = 0;
+            let total = 0;
 
-        const draggables = document.querySelectorAll('.draggable');
-        const dropTargets = document.querySelectorAll('.drop-target');
-
-        draggables.forEach(item => {
-            item.addEventListener('dragstart', (e) => {
-                draggedItem = e.target;
-                setTimeout(() => {
-                    e.target.style.display = 'none';
-                }, 0);
-            });
-
-            item.addEventListener('dragend', (e) => {
-                setTimeout(() => {
-                    e.target.style.display = 'block';
-                    draggedItem = null;
-                }, 0);
-            });
-        });
-
-        dropTargets.forEach(target => {
-            target.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                target.classList.add('over');
-            });
-
-            target.addEventListener('dragleave', () => {
-                target.classList.remove('over');
-            });
-
-            target.addEventListener('drop', (e) => {
-                e.preventDefault();
-                target.classList.remove('over');
-                if (draggedItem && draggedItem.dataset.value === target.dataset.accepts) {
-                    target.appendChild(draggedItem);
+            if (input1) {
+                total++;
+                if (input1.value.trim().toLowerCase() === expected1) {
+                    correct++;
                 }
-            });
-        });
+            }
 
-        function checkDragDrop(questionId, correctCount) {
-             const feedbackEl = document.getElementById(`feedback-${questionId}`);
-             let correctDrops = 0;
+            if (blank2Id && expected2) {
+                const input2 = document.getElementById(blank2Id);
+                if (input2) {
+                    total++;
+                    if (input2.value.trim().toLowerCase() === expected2) {
+                        correct++;
+                    }
+                }
+            }
 
-             if (questionId === 'sentences') {
-                 if (document.getElementById('drop-1').children.length > 0 && document.getElementById('drop-1').children[0].dataset.value === 'is') correctDrops++;
-                 if (document.getElementById('drop-2').children.length > 0 && document.getElementById('drop-2').children[0].dataset.value === 'are') correctDrops++;
-             } else if (questionId === 'phrases') {
-                 if (document.getElementById('drop-3').children.length > 0 && document.getElementById('drop-3').children[0].dataset.value === 'correct') correctDrops++;
-             } else if (questionId === 'questions') {
-                 if (document.getElementById('drop-4').children.length > 0 && document.getElementById('drop-4').children[0].dataset.value === 'are') correctDrops++;
-                 if (document.getElementById('drop-5').children.length > 0 && document.getElementById('drop-5').children[0].dataset.value === 'is') correctDrops++;
-             } else if (questionId === 'plates') {
-                 const plate1Items = Array.from(document.getElementById('drop-plate1').children).filter(el => el.classList.contains('draggable'));
-                 const plate2Items = Array.from(document.getElementById('drop-plate2').children).filter(el => el.classList.contains('draggable'));
-                 let plate1Correct = true;
-                 plate1Items.forEach(item => {
-                     if (item.dataset.value !== 'vegetables') plate1Correct = false;
-                 });
-                 let plate2Correct = true;
-                 plate2Items.forEach(item => {
-                     if (item.dataset.value !== 'chicken') plate2Correct = false;
-                 });
-
-                 if (plate1Correct && plate2Correct && plate1Items.length === 2 && plate2Items.length === 1) {
-                     correctDrops = 2; // All drops are correct
-                 } else {
-                     correctDrops = 0;
-                 }
-             }
-
-             if (correctDrops === correctCount) {
-                 feedbackEl.textContent = '¡Muy bien! Has completado todas las actividades correctamente.';
-                 feedbackEl.className = 'feedback correct';
-             } else {
-                 feedbackEl.textContent = 'Algunas respuestas no están en el lugar correcto. ¡Inténtalo de nuevo!';
-                 feedbackEl.className = 'feedback incorrect';
-             }
-             feedbackEl.style.display = 'block';
+            if (correct === total) {
+                feedbackEl.textContent = '¡Muy bien! Has completado todas las actividades correctamente.';
+                feedbackEl.className = 'feedback correct';
+            } else {
+                feedbackEl.textContent = `Tienes ${correct} de ${total} respuestas correctas. ¡Inténtalo de nuevo!`;
+                feedbackEl.className = 'feedback incorrect';
+            }
+            feedbackEl.style.display = 'block';
         }
     </script>
 </body>
