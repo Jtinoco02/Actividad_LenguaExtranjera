@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad: Traditional dishes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .question-img {
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        .feedback {
+            margin-top: 1rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+        }
+        .feedback.correct {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        .feedback.incorrect {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        .option-button {
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .option-button:hover {
+            background-color: #e2e8f0;
+            transform: translateY(-2px);
+        }
+        .draggable {
+            cursor: grab;
+            user-select: none;
+            padding: 0.75rem;
+            margin: 0.5rem;
+            background-color: #e0e7ff;
+            border: 2px solid #a5b4fc;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .drop-target {
+            padding: 1rem;
+            margin: 0.5rem;
+            background-color: #f3f4f6;
+            border: 2px dashed #9ca3af;
+            border-radius: 8-px;
+            min-height: 50px;
+            transition: background-color 0.2s;
+        }
+        .drop-target.over {
+            background-color: #d1d5db;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-blue-600">Traditional Dishes 🍽️</h1>
+            <p class="text-lg text-gray-600 mt-2">Let's practice using 'there is' and 'there are' to talk about food!</p>
+        </header>
+
+        <main>
+            <!-- Parte 1: Falso o Verdadero -->
+            <section id="true-false">
+                <h2 class="text-2xl font-semibold text-blue-700 mb-4 border-b-2 border-blue-200 pb-2">Parte 1: True or False</h2>
+                
+                <!-- Pregunta 1 -->
+                <div class="card">
+                    <p class="mb-4 text-lg">1. Look at the image of a dish. Is this statement true or false?</p>
+                    <img src="https://www.mapanicaragua.com/wp-content/uploads/2020/07/Nacatamal-y-cafe-_larreynaga_gastronomia2.jpg" alt="Image of a Nacatamal" class="question-img mb-4">
+                    <p class="mb-4 font-semibold italic">"There is some meat inside the nacatamal."</p>
+                    <div class="space-x-4">
+                        <button onclick="checkAnswer('tf1', true)" class="px-4 py-2 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:bg-blue-100">True</button>
+                        <button onclick="checkAnswer('tf1', false)" class="px-4 py-2 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:bg-blue-100">False</button>
+                    </div>
+                    <div id="feedback-tf1" class="feedback"></div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="card">
+                    <p class="mb-4 text-lg">2. Look at the image of a meal. Is this statement true or false?</p>
+                    <img src="https://www.mapanicaragua.com/wp-content/uploads/2022/02/Desayuno-nicaraguense-2.jpg" alt="Image of a Nicaraguan breakfast" class="question-img mb-4">
+                    <p class="mb-4 font-semibold italic">"There are some beans on the plate."</p>
+                    <div class="space-x-4">
+                        <button onclick="checkAnswer('tf2', true)" class="px-4 py-2 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:bg-blue-100">True</button>
+                        <button onclick="checkAnswer('tf2', false)" class="px-4 py-2 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:bg-blue-100">False</button>
+                    </div>
+                    <div id="feedback-tf2" class="feedback"></div>
+                </div>
+            </section>
+
+            <!-- Parte 2: Opción Única -->
+            <section id="single-choice">
+                <h2 class="text-2xl font-semibold text-blue-700 my-4 border-b-2 border-blue-200 pb-2">Parte 2: Single Choice</h2>
+                
+                <!-- Pregunta 3 -->
+                <div class="card">
+                    <p class="mb-4 text-lg">3. Look at the image. Which sentence is correct?</p>
+                    <img src="https://www.mapanicaragua.com/wp-content/uploads/2020/09/Vigoron-.jpg" alt="Image of Vigorón" class="question-img mb-4">
+                    <div class="space-y-3">
+                        <button onclick="checkAnswer('sc3', false)" class="option-button w-full text-left p-3 bg-white border-2 border-gray-300 rounded-lg">There is many pieces of chicharrón.</button>
+                        <button onclick="checkAnswer('sc3', true)" class="option-button w-full text-left p-3 bg-white border-2 border-gray-300 rounded-lg">There are many pieces of chicharrón.</button>
+                        <button onclick="checkAnswer('sc3', false)" class="option-button w-full text-left p-3 bg-white border-2 border-gray-300 rounded-lg">There is a lot of chicharróns.</button>
+                    </div>
+                    <div id="feedback-sc3" class="feedback"></div>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div class="card">
+                    <p class="mb-4 text-lg">4. Look at the image. Which sentence is correct?</p>
+                    <img src="https://www.mapanicaragua.com/wp-content/uploads/2020/10/Fritanga-Tiangues-de-Masaya-_masaya_gastronomia4.jpg" alt="Image of Fritanga" class="question-img mb-4">
+                    <div class="space-y-3">
+                        <button onclick="checkAnswer('sc4', false)" class="option-button w-full text-left p-3 bg-white border-2 border-gray-300 rounded-lg">There are some cheese.</button>
+                        <button onclick="checkAnswer('sc4', true)" class="option-button w-full text-left p-3 bg-white border-2 border-gray-300 rounded-lg">There is some cheese.</button>
+                        <button onclick="checkAnswer('sc4', false)" class="option-button w-full text-left p-3 bg-white border-2 border-gray-300 rounded-lg">There is some tajada.</button>
+                    </div>
+                    <div id="feedback-sc4" class="feedback"></div>
+                </div>
+            </section>
+
+            <!-- Parte 3: Opción Múltiple (Selecciona varias) -->
+            <section id="multiple-choice">
+                <h2 class="text-2xl font-semibold text-blue-700 my-4 border-b-2 border-blue-200 pb-2">Parte 3: Multiple Choice (Select all correct answers)</h2>
+                
+                <!-- Pregunta 5 -->
+                <div class="card">
+                    <p class="mb-4 text-lg">5. Look at the image. Which of the following sentences are correct?</p>
+                    <img src="https://thumbs.dreamstime.com/z/env%C3%ADo-de-varias-frutas-tropicales-vendidas-en-un-mercado-masaya-nicaragua-concepto-agricultura-y-producci%C3%B3n-am%C3%A9rica-central-248135504.jpg?ct=jpeg" alt="Image of fruits in a market" class="question-img mb-4">
+                    <div class="mt-4 space-y-3" id="mc5-options">
+                        <label class="flex items-center p-3 bg-white border-2 border-gray-300 rounded-lg hover:bg-blue-50 cursor-pointer"><input type="checkbox" value="correct" class="mr-3 h-5 w-5"> There are many fruits in the basket.</label>
+                        <label class="flex items-center p-3 bg-white border-2 border-gray-300 rounded-lg hover:bg-blue-50 cursor-pointer"><input type="checkbox" value="incorrect" class="mr-3 h-5 w-5"> There is an oranges.</label>
+                        <label class="flex items-center p-3 bg-white border-2 border-gray-300 rounded-lg hover:bg-blue-50 cursor-pointer"><input type="checkbox" value="correct" class="mr-3 h-5 w-5"> There are some bananas.</label>
+                        <label class="flex items-center p-3 bg-white border-2 border-gray-300 rounded-lg hover:bg-blue-50 cursor-pointer"><input type="checkbox" value="incorrect" class="mr-3 h-5 w-5"> There is a grapes.</label>
+                    </div>
+                    <button onclick="checkMultipleChoice('mc5', 2)" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
+                    <div id="feedback-mc5" class="feedback"></div>
+                </div>
+
+                <!-- Pregunta 6 -->
+                <div class="card">
+                    <p class="mb-4 text-lg">6. Look at the image. Which of the following sentences are correct?</p>
+                    <img src="https://recetasdenicaragua.com/wp-content/uploads/2019/10/fritanga-comida-nicaraguense.jpg" alt="Image of food" class="question-img mb-4">
+                    <div class="mt-4 space-y-3" id="mc6-options">
+                        <label class="flex items-center p-3 bg-white border-2 border-gray-300 rounded-lg hover:bg-blue-50 cursor-pointer"><input type="checkbox" value="correct" class="mr-3 h-5 w-5"> There are some plantains with the chicken.</label>
+                        <label class="flex items-center p-3 bg-white border-2 border-gray-300 rounded-lg hover:bg-blue-50 cursor-pointer"><input type="checkbox" value="correct" class="mr-3 h-5 w-5"> There is a piece of chicken.</label>
+                        <label class="flex items-center p-3 bg-white border-2 border-gray-300 rounded-lg hover:bg-blue-50 cursor-pointer"><input type="checkbox" value="incorrect" class="mr-3 h-5 w-5"> There are some chickens.</label>
+                        <label class="flex items-center p-3 bg-white border-2 border-gray-300 rounded-lg hover:bg-blue-50 cursor-pointer"><input type="checkbox" value="incorrect" class="mr-3 h-5 w-5"> There is some plantains.</label>
+                    </div>
+                    <button onclick="checkMultipleChoice('mc6', 2)" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
+                    <div id="feedback-mc6" class="feedback"></div>
+                </div>
+            </section>
+
+            <!-- Parte 4: Arrastrar y Soltar -->
+            <section id="drag-drop">
+                <h2 class="text-2xl font-semibold text-blue-700 my-4 border-b-2 border-blue-200 pb-2">Parte 4: Drag and Drop</h2>
+                
+                <!-- Pregunta 7 -->
+                <div class="card">
+                    <p class="mb-4 text-lg">7. Drag and drop the correct words to complete the sentences.</p>
+                    <div class="flex flex-col md:flex-row justify-between mt-4 items-center">
+                        <div id="words" class="flex flex-wrap justify-center">
+                            <div class="draggable" draggable="true" data-value="is">is</div>
+                            <div class="draggable" draggable="true" data-value="are">are</div>
+                        </div>
+                        <div id="drop-sentences" class="w-full md:w-1/2 mt-4 md:mt-0 space-y-4">
+                            <div class="flex items-center">
+                                <span class="text-lg">There</span>
+                                <div id="drop-1" class="drop-target w-24 mx-2" data-accepts="is"></div>
+                                <span class="text-lg">a lot of sugar in the drink.</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-lg">There</span>
+                                <div id="drop-2" class="drop-target w-24 mx-2" data-accepts="are"></div>
+                                <span class="text-lg">many ingredients in the soup.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="checkDragDrop('sentences', 2)" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
+                    <div id="feedback-sentences" class="feedback"></div>
+                </div>
+
+                <!-- Pregunta 8 -->
+                <div class="card">
+                    <p class="mb-4 text-lg">8. Drag the phrases to complete the sentences correctly.</p>
+                    <div class="flex flex-col md:flex-row justify-between mt-4 items-center">
+                        <div id="phrases" class="flex flex-wrap justify-center">
+                            <div class="draggable" draggable="true" data-value="correct">there is</div>
+                            <div class="draggable" draggable="true" data-value="incorrect">there are</div>
+                        </div>
+                        <div id="drop-phrases" class="w-full md:w-1/2 mt-4 md:mt-0 space-y-4">
+                             <div class="flex items-center">
+                                <div id="drop-3" class="drop-target w-32" data-accepts="correct"></div>
+                                <span class="ml-2 text-lg">some cheese on the pizza.</span>
+                            </div>
+                        </div>
+                    </div>
+                     <button onclick="checkDragDrop('phrases', 1)" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
+                     <div id="feedback-phrases" class="feedback"></div>
+                </div>
+                
+                 <!-- Pregunta 9 -->
+                <div class="card">
+                    <p class="mb-4 text-lg">9. Drag and drop the words to complete the questions correctly.</p>
+                    <div class="flex flex-col md:flex-row justify-between mt-4 items-center">
+                        <div id="question-words" class="flex flex-wrap justify-center">
+                            <div class="draggable" draggable="true" data-value="is">is</div>
+                            <div class="draggable" draggable="true" data-value="are">are</div>
+                        </div>
+                        <div id="drop-questions" class="w-full md:w-1/2 mt-4 md:mt-0 space-y-4">
+                            <div class="flex items-center">
+                                <div id="drop-4" class="drop-target w-24 mx-2" data-accepts="are"></div>
+                                <span class="text-lg">there any vegetables?</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div id="drop-5" class="drop-target w-24 mx-2" data-accepts="is"></div>
+                                <span class="text-lg">there a big spoon?</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="checkDragDrop('questions', 2)" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
+                    <div id="feedback-questions" class="feedback"></div>
+                </div>
+
+                 <!-- Pregunta 10 -->
+                <div class="card">
+                    <p class="mb-4 text-lg">10. Drag and drop the food to the correct plate.</p>
+                    <img src="https://www.entrenadorwellness.com/wp-content/uploads/2019/03/Pollo-con-verduras-al-horno.jpg.webp" alt="Image of various ingredients like vegetables" class="question-img mb-4">
+                    <div class="flex justify-around mt-4">
+                        <div class="drop-target p-4 w-1/3" id="drop-plate1" data-accepts="vegetables">
+                            <p class="text-center font-bold">Plate 1 (Vegetables)</p>
+                        </div>
+                        <div class="drop-target p-4 w-1/3" id="drop-plate2" data-accepts="chicken">
+                            <p class="text-center font-bold">Plate 2 (Chicken)</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-around mt-4">
+                        <div class="draggable p-2 w-1/4 text-sm" draggable="true" data-value="vegetables">Tomatoes</div>
+                        <div class="draggable p-2 w-1/4 text-sm" draggable="true" data-value="chicken">Chicken Breast</div>
+                        <div class="draggable p-2 w-1/4 text-sm" draggable="true" data-value="vegetables">Potatoes</div>
+                    </div>
+                    <button onclick="checkDragDrop('plates', 2)" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">Check Answer</button>
+                    <div id="feedback-plates" class="feedback"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // --- Lógica para Falso/Verdadero y Opción Única ---
+        function checkAnswer(questionId, isCorrect) {
+            const feedbackEl = document.getElementById(`feedback-${questionId}`);
+            if (isCorrect) {
+                feedbackEl.textContent = '¡Correcto! ¡Excelente trabajo!';
+                feedbackEl.className = 'feedback correct';
+            } else {
+                feedbackEl.textContent = 'No es correcto. ¡Inténtalo de nuevo!';
+                feedbackEl.className = 'feedback incorrect';
+            }
+            feedbackEl.style.display = 'block';
+        }
+
+        // --- Lógica para Opción Múltiple ---
+        function checkMultipleChoice(questionId, correctCount) {
+            const optionsContainer = document.getElementById(`${questionId}-options`);
+            const checkboxes = optionsContainer.querySelectorAll('input[type="checkbox"]');
+            let selectedCorrect = 0;
+            let selectedIncorrect = 0;
+
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    if (cb.value === 'correct') {
+                        selectedCorrect++;
+                    } else {
+                        selectedIncorrect++;
+                    }
+                }
+            });
+
+            const feedbackEl = document.getElementById(`feedback-${questionId}`);
+            if (selectedCorrect === correctCount && selectedIncorrect === 0) {
+                feedbackEl.textContent = '¡Perfecto! Todas tus selecciones son correctas.';
+                feedbackEl.className = 'feedback correct';
+            } else {
+                feedbackEl.textContent = 'Algunas selecciones no son correctas. Revisa tus respuestas.';
+                feedbackEl.className = 'feedback incorrect';
+            }
+            feedbackEl.style.display = 'block';
+        }
+
+        // --- Lógica para Arrastrar y Soltar ---
+        let draggedItem = null;
+
+        const draggables = document.querySelectorAll('.draggable');
+        const dropTargets = document.querySelectorAll('.drop-target');
+
+        draggables.forEach(item => {
+            item.addEventListener('dragstart', (e) => {
+                draggedItem = e.target;
+                setTimeout(() => {
+                    e.target.style.display = 'none';
+                }, 0);
+            });
+
+            item.addEventListener('dragend', (e) => {
+                setTimeout(() => {
+                    e.target.style.display = 'block';
+                    draggedItem = null;
+                }, 0);
+            });
+        });
+
+        dropTargets.forEach(target => {
+            target.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                target.classList.add('over');
+            });
+
+            target.addEventListener('dragleave', () => {
+                target.classList.remove('over');
+            });
+
+            target.addEventListener('drop', (e) => {
+                e.preventDefault();
+                target.classList.remove('over');
+                if (draggedItem && draggedItem.dataset.value === target.dataset.accepts) {
+                    target.appendChild(draggedItem);
+                }
+            });
+        });
+
+        function checkDragDrop(questionId, correctCount) {
+             const feedbackEl = document.getElementById(`feedback-${questionId}`);
+             let correctDrops = 0;
+
+             if (questionId === 'sentences') {
+                 if (document.getElementById('drop-1').children.length > 0 && document.getElementById('drop-1').children[0].dataset.value === 'is') correctDrops++;
+                 if (document.getElementById('drop-2').children.length > 0 && document.getElementById('drop-2').children[0].dataset.value === 'are') correctDrops++;
+             } else if (questionId === 'phrases') {
+                 if (document.getElementById('drop-3').children.length > 0 && document.getElementById('drop-3').children[0].dataset.value === 'correct') correctDrops++;
+             } else if (questionId === 'questions') {
+                 if (document.getElementById('drop-4').children.length > 0 && document.getElementById('drop-4').children[0].dataset.value === 'are') correctDrops++;
+                 if (document.getElementById('drop-5').children.length > 0 && document.getElementById('drop-5').children[0].dataset.value === 'is') correctDrops++;
+             } else if (questionId === 'plates') {
+                 const plate1Items = Array.from(document.getElementById('drop-plate1').children).filter(el => el.classList.contains('draggable'));
+                 const plate2Items = Array.from(document.getElementById('drop-plate2').children).filter(el => el.classList.contains('draggable'));
+                 let plate1Correct = true;
+                 plate1Items.forEach(item => {
+                     if (item.dataset.value !== 'vegetables') plate1Correct = false;
+                 });
+                 let plate2Correct = true;
+                 plate2Items.forEach(item => {
+                     if (item.dataset.value !== 'chicken') plate2Correct = false;
+                 });
+
+                 if (plate1Correct && plate2Correct && plate1Items.length === 2 && plate2Items.length === 1) {
+                     correctDrops = 2; // All drops are correct
+                 } else {
+                     correctDrops = 0;
+                 }
+             }
+
+             if (correctDrops === correctCount) {
+                 feedbackEl.textContent = '¡Muy bien! Has completado todas las actividades correctamente.';
+                 feedbackEl.className = 'feedback correct';
+             } else {
+                 feedbackEl.textContent = 'Algunas respuestas no están en el lugar correcto. ¡Inténtalo de nuevo!';
+                 feedbackEl.className = 'feedback incorrect';
+             }
+             feedbackEl.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
